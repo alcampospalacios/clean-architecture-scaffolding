@@ -141,6 +141,7 @@
     "axios": "^1.1.0",
     "change-case": "^4.1.2",
     "gh-retrieve": "^1.1.2",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "vscode": "^1.1.37"
   }
 }

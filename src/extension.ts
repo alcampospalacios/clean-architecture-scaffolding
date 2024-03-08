@@ -50,8 +50,8 @@ export function activate(context: vscode.ExtensionContext) {
     if (folderList.length <= 0 && templateList.length <= 0) {
       return false;
     }
-
-    const rootFolder = uri.path.substring(0, uri.path.indexOf("/lib"));
+    
+    const rootFolder = uri.path.substring(1, uri.path.indexOf("/lib"));
     let fileName = "";
 
     if (templateList && templateList.length > 0) {
@@ -65,7 +65,6 @@ export function activate(context: vscode.ExtensionContext) {
           );
 
           const templateFile = `${rootFolder}/.my_templates/${fileName}`;
-
           if (!fs.existsSync(templateFile)) {
             return false;
           }

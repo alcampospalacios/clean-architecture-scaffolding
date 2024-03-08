@@ -41,7 +41,9 @@ String.prototype.replaceName = function (
 };
 
 export function getClickedFolder(uri: Uri): string {
-  return uri.fsPath;
+  // TODO: Check to mac and linux compatibility
+  const path =   uri.fsPath.replaceAll("\\", "/");
+  return path;
 }
 
 export function getRootFolder(uri: Uri): string {
@@ -50,7 +52,8 @@ export function getRootFolder(uri: Uri): string {
 
 export async function getPackageName(uri: Uri): Promise<string> {
   try {
-    const rootFolder = getRootFolder(uri).split("/");
+    // TODO: Check to mac and linux compatibility
+    const rootFolder = getRootFolder(uri).split("\\");
     const packageName = rootFolder[rootFolder.length - 1];
     return packageName;
   } catch (error) {

@@ -2,14 +2,18 @@ import { readFileSync, writeFile } from "fs";
 import { Uri, window } from "vscode";
 import * as utils from "../utils/tools";
 import fs = require("fs");
+import { dirname } from "path";
 
 export async function createUsecase(uri: Uri) {
-  //Get the keywords values
+  //Get the keywords values 
+
   const clickedFolder = utils.getClickedFolder(uri);
-  const rootFolder = utils.getRootFolder(uri);
+  let rootFolder = utils.getRootFolder(uri);
+  rootFolder = rootFolder.replaceAll("\\", "/");  
   const filePathConfigList = await utils.getExtensionFileTemplates();
   const usecaseName = await getUsecaseName();
-  const packageName = await utils.getPackageName(uri);
+  let packageName = await utils.getPackageName(uri);
+  packageName = packageName.replaceAll("\\", "/");
 
   //Se não informar o usecaseName não deve continuar
   if (!usecaseName) {
@@ -19,12 +23,12 @@ export async function createUsecase(uri: Uri) {
   if (filePathConfigList && Array.isArray(filePathConfigList)) {
     const templatesList = getTemplatesFileList(filePathConfigList);
     let featureName: string;
-
+    
     try {
       let templatesMap = new Map<string, string>();
 
       templatesList.forEach(async (element: string) => {
-        featureName = getFeatureName(clickedFolder, element, uri);
+        featureName = getFeatureName(clickedFolder, element, uri);        
         if (!featureName) {
           return;
         }
@@ -32,8 +36,9 @@ export async function createUsecase(uri: Uri) {
         const templateFileName = element.substring(
           element.lastIndexOf("/") + 1,
           element.length
-        );
-
+          );
+        
+    
         const pathFileName = element
           .replaceName("{{feature_name}}", featureName)
           .replaceName("{{custom_folder}}", clickedFolder)
@@ -73,13 +78,14 @@ export async function createUsecase(uri: Uri) {
 
           .replaceAll(".template", ".dart");
 
+
+
         let templateFile = `${rootFolder}/.my_templates/${templateFileName}`;
         let templateContent = readFileSync(templateFile, "utf8");
 
         if (templateContent && templateContent !== null) {
           templatesMap.set(pathFileName, templateContent);
         }
-        // console.log(pathFileName);
       });
 
       if (templatesMap) {
@@ -197,9 +203,7 @@ export async function createUsecase(uri: Uri) {
 
           templatesMap.set(filePath, content);
 
-          writeFile(filePath, content, "utf8", (error) => {
-            console.log("Error", error);
-          });
+          writeFileExt(filePath, content, );
         });
       }
     } catch (error) {
@@ -207,6 +211,16 @@ export async function createUsecase(uri: Uri) {
       throw error;
     }
   }
+}
+
+function writeFileExt(path: string, contents: string) {
+ fs.mkdir(dirname(path), { recursive: true }, function (err: any) {
+    if (err) return err;
+
+    fs.writeFile(path, contents,  "utf8" ,(error) => {
+      console.log("ErrorWriteFile ", error);
+    });
+  });
 }
 
 async function getUsecaseName(): Promise<string | undefined> {
@@ -240,12 +254,14 @@ function getFeatureName(
   template = template.replaceName("{{root_folder}}", utils.getRootFolder(uri));
   const templateArray = template.split("/");
   const clickedArray = clickedFolder.split("/");
+  // TODO: check if the feature value is necessary
   const featureName = templateArray.find(isFeature);
   if (featureName) {
-    indexOfFeatureName = templateArray.indexOf(featureName, 0);
+    indexOfFeatureName = templateArray.indexOf(featureName, 3);    
   }
   if (indexOfFeatureName > 0) {
-    return clickedArray[indexOfFeatureName];
+    indexOfFeatureName = clickedArray.indexOf('domain');
+    return clickedArray[indexOfFeatureName-1];
   } else {
     return "";
   }
