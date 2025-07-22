@@ -39,7 +39,7 @@
           "scaffolding.layers.templates": {
             "type": "array",
             "default": [
-              "{{root_folder}}/app/{{feature_name}}/_layout.tsx.template",
+              "{{root_folder}}/app/{{feature_name}}/_layout.template",
               
               "{{root_folder}}/app/{{feature_name}}/domain/usecases/{{usecase_name.snakeCase}}_usecase.template",
               "{{root_folder}}/app/{{feature_name}}/domain/repositories/{{usecase_name.snakeCase}}_repository.template",
@@ -98,6 +98,11 @@
         },
         {
           "when": "explorerResourceIsFolder",
+          "command": "clean-architecture-scaffolding.createGenericFiles",
+          "group": "1_clean_architecture_scaffolding@1"
+        },
+        {
+          "when": "explorerResourceIsFolder",
           "command": "clean-architecture-scaffolding.createUsecase",
           "group": "1_clean_architecture_scaffolding@1"
         }
@@ -107,6 +112,11 @@
       {
         "command": "clean-architecture-scaffolding.createFolders",
         "title": "Clean Arch Scaffolding.: Create folders",
+        "category": "Clean Arch Scaffolding"
+      },
+      {
+        "command": "clean-architecture-scaffolding.createGenericFiles",
+        "title": "Clean Arch Scaffolding.: New generic files",
         "category": "Clean Arch Scaffolding"
       },
       {

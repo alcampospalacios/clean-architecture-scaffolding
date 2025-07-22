@@ -4,21 +4,21 @@ import * as utils from "../utils/tools";
 import fs = require("fs");
 import { dirname } from "path";
 
-export async function createUsecase(uri: Uri) {
+export async function createGenericFiles(uri: Uri) {
   //Get the keywords values 
 
   const clickedFolder = utils.getClickedFolder(uri);
   let rootFolder = utils.getRootFolder(uri);
   rootFolder = rootFolder.replaceAll("\\", "/");  
   const filePathConfigList = await utils.getExtensionFileTemplates();
-  const usecaseName = await getUsecaseName();
+  // const usecaseName = await getUsecaseName();
   let packageName = await utils.getPackageName(uri);
   packageName = packageName.replaceAll("\\", "/");
 
-  //Se não informar o usecaseName não deve continuar
-  if (!usecaseName) {
-    return;
-  }
+  // //Se não informar o usecaseName não deve continuar
+  // if (!usecaseName) {
+  //   return;
+  // }
 
   if (filePathConfigList && Array.isArray(filePathConfigList)) {
     const templatesList = getTemplatesFileList(filePathConfigList);
@@ -42,41 +42,41 @@ export async function createUsecase(uri: Uri) {
         const pathFileName = element
           .replaceName("{{feature_name}}", featureName)
           .replaceName("{{custom_folder}}", clickedFolder)
-          .replaceName("{{usecase_name}}", usecaseName)
+          // .replaceName("{{usecase_name}}", usecaseName)
           .replaceName("{{package_name}}", packageName)
           .replaceName("{{root_folder}}", rootFolder)
 
           .replaceName("{{feature_name.lowerCase}}", featureName)
           .replaceName("{{custom_folder.lowerCase}}", clickedFolder)
-          .replaceName("{{usecase_name.lowerCase}}", usecaseName)
+          // .replaceName("{{usecase_name.lowerCase}}", usecaseName)
           .replaceName("{{package_name.lowerCase}}", packageName)
           .replaceName("{{root_folder.lowerCase}}", rootFolder)
 
           .replaceName("{{feature_name.upperCase}}", featureName)
           .replaceName("{{custom_folder.upperCase}}", clickedFolder)
-          .replaceName("{{usecase_name.upperCase}}", usecaseName)
+          // .replaceName("{{usecase_name.upperCase}}", usecaseName)
           .replaceName("{{package_name.upperCase}}", packageName)
           .replaceName("{{root_folder.upperCase}}", rootFolder)
 
           .replaceName("{{feature_name.snakeCase}}", featureName)
           .replaceName("{{custom_folder.snakeCase}}", clickedFolder)
-          .replaceName("{{usecase_name.snakeCase}}", usecaseName)
+          // .replaceName("{{usecase_name.snakeCase}}", usecaseName)
           .replaceName("{{package_name.snakeCase}}", packageName)
           .replaceName("{{root_folder.snakeCase}}", rootFolder)
 
           .replaceName("{{feature_name.pascalCase}}", featureName)
           .replaceName("{{custom_folder.pascalCase}}", clickedFolder)
-          .replaceName("{{usecase_name.pascalCase}}", usecaseName)
+          // .replaceName("{{usecase_name.pascalCase}}", usecaseName)
           .replaceName("{{package_name.pascalCase}}", packageName)
           .replaceName("{{root_folder.pascalCase}}", rootFolder)
 
           .replaceName("{{feature_name.camelCase}}", featureName)
           .replaceName("{{custom_folder.camelCase}}", clickedFolder)
-          .replaceName("{{usecase_name.camelCase}}", usecaseName)
+          // .replaceName("{{usecase_name.camelCase}}", usecaseName)
           .replaceName("{{package_name.camelCase}}", packageName)
           .replaceName("{{root_folder.camelCase}}", rootFolder)
 
-          .replaceAll(".template", ".dart");
+          .replaceAll(".template", ".tsx");
 
 
 
@@ -92,7 +92,7 @@ export async function createUsecase(uri: Uri) {
         templatesMap.forEach((content, filePath) => {
           content = content.replaceName("{{feature_name}}", featureName!);
           content = content.replaceName("{{custom_folder}}", clickedFolder);
-          content = content.replaceName("{{usecase_name}}", usecaseName);
+          // content = content.replaceName("{{usecase_name}}", usecaseName);
           content = content.replaceName("{{package_name}}", packageName);
           content = content.replaceName("{{root_folder}}", rootFolder);
 
@@ -104,10 +104,10 @@ export async function createUsecase(uri: Uri) {
             "{{custom_folder.lowerCase}}",
             clickedFolder
           );
-          content = content.replaceName(
-            "{{usecase_name.lowerCase}}",
-            usecaseName
-          );
+          // content = content.replaceName(
+          //   "{{usecase_name.lowerCase}}",
+          //   usecaseName
+          // );
           content = content.replaceName(
             "{{package_name.lowerCase}}",
             packageName
@@ -125,10 +125,10 @@ export async function createUsecase(uri: Uri) {
             "{{custom_folder.upperCase}}",
             clickedFolder
           );
-          content = content.replaceName(
-            "{{usecase_name.upperCase}}",
-            usecaseName
-          );
+          // content = content.replaceName(
+          //   "{{usecase_name.upperCase}}",
+          //   usecaseName
+          // );
           content = content.replaceName(
             "{{package_name.upperCase}}",
             packageName
@@ -146,10 +146,10 @@ export async function createUsecase(uri: Uri) {
             "{{custom_folder.snakeCase}}",
             clickedFolder
           );
-          content = content.replaceName(
-            "{{usecase_name.snakeCase}}",
-            usecaseName
-          );
+          // content = content.replaceName(
+          //   "{{usecase_name.snakeCase}}",
+          //   usecaseName
+          // );
           content = content.replaceName(
             "{{package_name.snakeCase}}",
             packageName
@@ -167,10 +167,10 @@ export async function createUsecase(uri: Uri) {
             "{{custom_folder.pascalCase}}",
             clickedFolder
           );
-          content = content.replaceName(
-            "{{usecase_name.pascalCase}}",
-            usecaseName
-          );
+          // content = content.replaceName(
+          //   "{{usecase_name.pascalCase}}",
+          //   usecaseName
+          // );
           content = content.replaceName(
             "{{package_name.pascalCase}}",
             packageName
@@ -188,10 +188,10 @@ export async function createUsecase(uri: Uri) {
             "{{custom_folder.camelCase}}",
             clickedFolder
           );
-          content = content.replaceName(
-            "{{usecase_name.camelCase}}",
-            usecaseName
-          );
+          // content = content.replaceName(
+          //   "{{usecase_name.camelCase}}",
+          //   usecaseName
+          // );
           content = content.replaceName(
             "{{package_name.camelCase}}",
             packageName
@@ -260,8 +260,8 @@ function getFeatureName(
     indexOfFeatureName = templateArray.indexOf(featureName, 3);    
   }
   if (indexOfFeatureName > 0) {
-    indexOfFeatureName = clickedArray.indexOf('domain');
-    return clickedArray[indexOfFeatureName-1];
+    // indexOfFeatureName = clickedArray.indexOf('domain');
+    return clickedArray[indexOfFeatureName];
   } else {
     return "";
   }
@@ -299,6 +299,7 @@ export async function getTemplatesFile(uri: Uri) {
     `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_datasource_impl.template`,
     `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_repository.template`,
     `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_repository_impl.template`,
+    `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_usecase.template`,
     `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_usecase.template`,
   ];
 
