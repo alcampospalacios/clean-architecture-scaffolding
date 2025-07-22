@@ -294,12 +294,14 @@ export async function getTemplatesFile(uri: Uri) {
     "https://raw.githubusercontent.com/alcampospalacios/clean-architecture-scaffolding/react-native/.my_templates/reactnative_templates/";
 
   const templates = [
-    `${baseUrl}_layout.tsx.template`,
-    `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_datasource.template`,
-    `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_datasource_impl.template`,
-    `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_repository.template`,
-    `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_repository_impl.template`,
-    `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_usecase.template`,
+    `${baseUrl}_layout.template`,
+    `${baseUrl}index.template`,
+    `${baseUrl}%7B%7Bfeature_name.snakeCase%7D%7D_screen.template`,
+    // `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_datasource.template`,
+    // `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_datasource_impl.template`,
+    // `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_repository.template`,
+    // `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_repository_impl.template`,
+    // `${baseUrl}%7B%7Busecase_name.snakeCase%7D%7D_usecase.template`,
   ];
 
   templates.forEach((url) => {

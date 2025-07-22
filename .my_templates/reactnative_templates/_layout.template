@@ -11,4 +11,4 @@ const {{feature_name.pascalCase}}Layout = () => {
   );
 };
 
-export default Layout;
+export default {{feature_name.pascalCase}}Layout;

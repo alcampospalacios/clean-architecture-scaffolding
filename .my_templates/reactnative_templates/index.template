@@ -1,3 +1,3 @@
 // app/(feature)/index.tsx
-import {{feature_name.pascalCase}}Screen from './presentation/pages/{{feature_name.pascalCase}}Screen';
+import {{feature_name.pascalCase}}Screen from './presentation/pages/{{feature_name.snakeCase}}_screen';
 export default {{feature_name.pascalCase}}Screen;
