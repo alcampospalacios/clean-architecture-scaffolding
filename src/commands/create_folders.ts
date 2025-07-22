@@ -2,7 +2,7 @@ import { mkdirSync } from "fs";
 import { Uri, window } from "vscode";
 import * as utils from "../utils/tools";
 
-export async function createFolders(uri: Uri) {
+export async function createFolders(uri: Uri): Promise<string| undefined> {
   
   const featureName = await window.showInputBox({
     title: "New Feature Folders",
@@ -16,13 +16,15 @@ export async function createFolders(uri: Uri) {
   });
 
   if (!featureName) {
-    return;
+    return '';
   }
 
   const clickedFolder = utils.getClickedFolder(uri);
   const rootFolder = utils.getRootFolder(uri);
   const folderList = await utils.getExtensionFileTemplates();
   const packageName = await utils.getPackageName(uri);
+
+  const featureUrl = `${clickedFolder}/${featureName}`;
 
   if (folderList && Array.isArray(folderList)) {
     try {
@@ -152,7 +154,9 @@ export async function createFolders(uri: Uri) {
         );
 
         mkdirSync(featureFolder, { recursive: true });
+
       });
+      return featureUrl;
     } catch (err) {
       window.showInformationMessage(`${err}`);
       throw err;

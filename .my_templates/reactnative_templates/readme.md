@@ -11,6 +11,8 @@
     "{{root_folder}}/src/{{feature_name}}/data/models/",
     "{{root_folder}}/src/{{feature_name}}/data/datasources/{{usecase_name.snakeCase}}_datasource_impl.template",
     "{{root_folder}}/src/{{feature_name}}/presentation/pages/",
-    "{{root_folder}}/src/{{feature_name}}/presentation/widgets/"
+     "{{root_folder}}/app/{{feature_name}}/presentation/components/",
+    "{{root_folder}}/app/{{feature_name}}/presentation/hooks/",
+    "{{root_folder}}/app/{{feature_name}}/presentation/navigation/"
   ]
 ```

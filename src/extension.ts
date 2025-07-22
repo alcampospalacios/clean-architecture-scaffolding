@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as vscode from "vscode";
 import { createFolders } from "./commands/create_folders";
 import { createUsecase, getTemplatesFile } from "./commands/create_usecase";
-import { createGenericFiles } from "./commands/create_generic_files";
+import { createGenericFiles } from "./commands/create_folders_templates";
 
 export function activate(context: vscode.ExtensionContext) {
   vscode.commands.registerCommand(
@@ -40,10 +40,14 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   vscode.commands.registerCommand(
-    "clean-architecture-scaffolding.createGenericFiles",
+    "clean-architecture-scaffolding.createFoldersTemplates",
     async (uri: vscode.Uri) => {
-      if (await templatesOk(uri)) {
-        await createGenericFiles(uri);
+     const baseUrlFeature = await createFolders(uri) ?? 'si';
+     console.log(baseUrlFeature);
+     const baseUri = vscode.Uri.file(baseUrlFeature)
+
+      if (await templatesOk(baseUri)) {
+        await createGenericFiles(baseUri);
       } else {
         const YES_NO = await vscode.window.showWarningMessage(
           "The '.my_templates' folder was not found!\nDo you want to download some default templates as an example?\nPS: You can create your own examples using them as a base.",
@@ -51,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
           "No"
         );
         if (YES_NO === "Yes") {
-          getTemplatesFile(uri);
+          getTemplatesFile(baseUri);
         } else {
           vscode.window.showInformationMessage(
             `Tip: Look for templates in github:\nhttps://github.com/alcampospalacios/clean-architecture-scaffolding/tree/react-native/.my_templates`
