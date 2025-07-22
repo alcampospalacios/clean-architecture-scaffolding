@@ -71,5 +71,7 @@ If you want to adapt the template, go to the extension settings and edit the jso
 
 * `scaffolding.layers.templates`: Array of strings with folder template definitions.
 
-
+## To create a package
+* npm install -g @vscode/vsce         
+* vsce package  
 **Enjoy!**
