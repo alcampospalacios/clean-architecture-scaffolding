@@ -43,7 +43,6 @@ export function activate(context: vscode.ExtensionContext) {
     "clean-architecture-scaffolding.createFoldersTemplates",
     async (uri: vscode.Uri) => {
      const baseUrlFeature = await createFolders(uri) ?? 'si';
-     console.log(baseUrlFeature);
      const baseUri = vscode.Uri.file(baseUrlFeature)
 
       if (await templatesOk(baseUri)) {
