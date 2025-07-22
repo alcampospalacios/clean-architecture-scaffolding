@@ -27,7 +27,7 @@ export function activate(context: vscode.ExtensionContext) {
           getTemplatesFile(uri);
         } else {
           vscode.window.showInformationMessage(
-            `Tip: Look for templates in github:\nhttps://github.com/euclidesgc/clean-architecture-scaffolding/tree/main/.my_templates`
+            `Tip: Look for templates in github:\nhttps://github.com/alcampospalacios/clean-architecture-scaffolding/tree/main/.my_templates`
           );
 
           vscode.window.showErrorMessage(
@@ -51,7 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
       return false;
     }
     
-    const rootFolder = uri.path.substring(1, uri.path.indexOf("/lib"));
+    const rootFolder = uri.path.substring(1, uri.path.indexOf("/app"));
     let fileName = "";
 
     if (templateList && templateList.length > 0) {
